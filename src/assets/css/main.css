@@ -1,0 +1,36 @@
+.main {
+    padding-top: 20px;
+    padding-left: 30px;
+}
+
+.study-time {
+    align-items: flex-end;
+}
+
+.goal-time {
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.study-time-wrapper {
+    padding: 10px 0 0 10px;
+    background-color: #FFE3E3;
+    border-radius: 10px;
+    height: 130px;
+    width: 200px;
+}
+
+.main-title {
+    font-weight: 800;
+    color: #FF9999;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.environment-wrapper {
+    padding: 10px 0 0 10px;
+    background-color: #FFE3E3;
+    border-radius: 10px;
+    height: 230px;
+    width: 200px;
+}

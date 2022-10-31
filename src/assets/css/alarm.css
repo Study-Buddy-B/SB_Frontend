@@ -1,0 +1,14 @@
+.alarm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    width: 250px;
+    height: 85px;
+    box-shadow: 3px 3px 5px gray;
+    position: fixed;
+    top: 30px;
+}

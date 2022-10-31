@@ -1,0 +1,61 @@
+.flex-row {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-blue {
+    color: blue;
+}
+
+.color-grey {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.font-16 {
+    font-size: 16px;
+}
+
+.font-18 {
+    font-size: 18px;
+}
+
+.font-20 {
+    font-size: 20px;
+}
+
+.font-30 {
+    font-size: 30px;
+}
+
+.font-40 {
+    font-size: 40px;
+}
+
+.margin-left-30 {
+    margin-left: 30px;
+}
+
+.margin-top-50 {
+    margin-top: 50px;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}

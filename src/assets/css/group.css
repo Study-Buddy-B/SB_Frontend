@@ -1,0 +1,42 @@
+.group-add-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.group-add {
+    margin-top: 30px;
+    border-radius: 10px;
+    width: 90%;
+    text-align: center;
+    background-color: #FFE3E3;
+}
+
+.group-contents {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    border-radius: 10px;
+    width: 90%;
+    height: 50px;
+    text-align: center;
+    background-color: #FFE3E3;
+}
+
+.group-contents .study-name {
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.group-contents button {
+    background-color: transparent;
+    border: 0;
+}
+
+.group-contents .study-name .type {
+    font-size: 10px;
+    color: gray;
+}
