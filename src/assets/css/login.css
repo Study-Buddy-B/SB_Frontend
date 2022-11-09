@@ -1,0 +1,57 @@
+.main {
+    padding-top: 20px;
+    padding-left: 30px;
+}
+
+.login-wrapper{
+    padding: 10px 0 0 10px;
+    background-color: #FFE3E3;
+    border-radius: 10px;
+    height: 700px;
+    width: 390px;
+}
+
+.login-header{
+    text-align: left;
+    padding-top: 1ch;
+    padding-left: 3ch;
+    -webkit-text-fill-color: #FF9999;
+    text-decoration: solid;
+}
+
+form input{
+    width: 250px;
+    padding: 20px;
+    border: none;
+    margin-top: 40px;
+    margin-left: 60px;
+    margin-bottom: 30px;
+    font-size: 12px;
+    box-sizing: border-box;
+   
+}
+
+
+.inputbutton[type="submit"]{
+    width: 120px;
+    background-color:#FF9999;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-top: 50px;
+    padding: 16px;
+    margin-left: 120px;
+}
+
+.to-signup{
+    -webkit-text-fill-color: black;
+    text-decoration: underline;
+    margin-left: 150px;
+    margin-top: 30px;
+}
+
+.error{
+    margin-left: 60px;
+    -webkit-text-fill-color: red;
+}
