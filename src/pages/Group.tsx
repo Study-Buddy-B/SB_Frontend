@@ -1,11 +1,11 @@
 import React from "react";
 
-import GroupPage from "../components/group/Group.tsx";
+import GroupPage from "../components/group/Group";
 
 export default function Group() {
-    return (
-        <div>
-            <GroupPage />
-        </div>
-    );
+  return (
+    <div>
+      <GroupPage />
+    </div>
+  );
 }
