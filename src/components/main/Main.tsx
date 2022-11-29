@@ -1,20 +1,124 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  useRef,
+  useLayoutEffect,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
+import { Cookies } from "react-cookie";
+import axios from "axios";
 import { SlSettings } from "react-icons/sl";
 
 import "../../assets/css/main.css";
 import Modal from "../modal/Modal";
 
-export default function Main() {
+interface IAlarm {
+  setIsAlarm: Dispatch<SetStateAction<number>>;
+}
+
+export default function Main(props: IAlarm) {
+  const cookies = new Cookies();
+  const token = cookies.get("uuid");
+  const targetRef = useRef<HTMLInputElement>(null);
+
+  const [loading, setLoading] = useState(false);
   const [sit, setSit] = useState(15.7);
   const [goal, setGoal] = useState(20);
-  const [gesture, setGesture] = useState("좋은 자세입니다.");
-  const [temperature, setTemperature] = useState(36.5);
-  const [co2, setCo2] = useState(10);
+  const [gesture, setGesture] = useState(true);
+  const [temperature, setTemperature] = useState(18);
   const [modalOpen, setModalOpen] = useState(false);
-  const environment_tem = [{ contents: "! 적당한 온도입니다." }];
-  const environment_co2 = [{ contents: "! 환기가 필요합니다." }];
+  const env =
+    temperature < 18
+      ? "! 온도를 올려주세요."
+      : temperature > 21
+      ? "! 온도를 내려주세요."
+      : "! 적당한 온도입니다.";
+  const envClass =
+    env === "! 적당한 온도입니다."
+      ? "color-grey"
+      : env === "! 온도를 내려주세요."
+      ? "color-red"
+      : "color-blue";
 
   const closeModal = () => setModalOpen(false);
+
+  useLayoutEffect(() => {
+    setLoading(true);
+    const getTempPosture = setInterval(async () => {
+      await axios
+        .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/temperature`, {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setTemperature(res.data.current);
+          setLoading(false);
+        });
+
+      await axios
+        .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/posture`, {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setGesture(res.data.isAppropriate);
+        });
+    }, 1000);
+
+    return () => clearInterval(getTempPosture);
+  }, []);
+
+  useLayoutEffect(() => {
+    const getTime = async () => {
+      await axios
+        .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/users`, {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setSit(res.data.curTime);
+          setGoal(res.data.tarTime);
+        });
+    };
+    getTime();
+  }, [targetRef.current?.value]);
+
+  const completeClickHandler = () => {
+    const postTime = async () => {
+      await axios
+        .post(
+          `${process.env.REACT_APP_SERVER_HOST}/api/v1/users/time`,
+          {
+            time: targetRef.current?.value,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+        .then((res) => {
+          closeModal();
+        });
+    };
+    postTime();
+  };
+
+  useEffect(() => {
+    if (env === "! 온도를 내려주세요.") {
+      props.setIsAlarm(1);
+    } else if (env === "! 온도를 올려주세요.") {
+      props.setIsAlarm(2);
+    } else {
+      props.setIsAlarm(0);
+    }
+  }, [temperature]);
+
+  if (loading) return <div style={{ textAlign: "center" }}>...loAdiNg...</div>;
 
   return (
     <div className="main">
@@ -33,7 +137,16 @@ export default function Main() {
           </div>
           {modalOpen && (
             <Modal closeModal={closeModal}>
-              <div>Good</div>
+              <div style={{ fontSize: "20px" }}>목표 공부시간 설정</div>
+              <input
+                ref={targetRef}
+                className="target-time-input"
+                placeholder=""
+              />
+              <span> h</span>
+              <div className="modal-complete-btn">
+                <button onClick={completeClickHandler}>완료</button>
+              </div>
             </Modal>
           )}
         </div>
@@ -43,22 +156,17 @@ export default function Main() {
         </div>
       </div>
       <div>
-        <div className="environment-wrapper" style={{ marginTop: "10px" }}>
-          <div className="main-title">현재 환경</div>
+        <div className="environment-wrapper" style={{ marginTop: "30px" }}>
+          <div className="main-title">현재 공부상태</div>
           <div>온도</div>
           <div className="font-30">{temperature}℃</div>
-          <div className="font-16 color-grey">
-            {environment_tem[0].contents}
-          </div>
-          <div className="margin-top-20">
-            <div>이산화탄소</div>
+          <div className={"font-16 " + envClass}>{env}</div>
+          <div className="margin-top-30">
+            <div>자세</div>
             <div className="flex-row">
               <div className="font-30" style={{ marginRight: "100px" }}>
-                {co2}ppm
+                {gesture ? "Good" : "Bad"}
               </div>
-            </div>
-            <div className="font-16 color-grey">
-              {environment_co2[0].contents}
             </div>
           </div>
         </div>

@@ -1,36 +1,38 @@
 .main {
-    padding-top: 20px;
-    padding-left: 30px;
+  width: fit-content;
+  padding-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .study-time {
-    align-items: flex-end;
+  align-items: flex-end;
 }
 
 .goal-time {
-    margin-left: 5px;
-    margin-bottom: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
 
 .study-time-wrapper {
-    padding: 10px 0 0 10px;
-    background-color: #FFE3E3;
-    border-radius: 10px;
-    height: 130px;
-    width: 200px;
+  padding: 10px 0 0 10px;
+  background-color: #ffe3e3;
+  border-radius: 10px;
+  height: 150px;
+  width: 200px;
 }
 
 .main-title {
-    font-weight: 800;
-    color: #FF9999;
-    margin-bottom: 20px;
-    font-size: 20px;
+  font-weight: 800;
+  color: #ff9999;
+  margin-bottom: 30px;
+  font-size: 20px;
 }
 
 .environment-wrapper {
-    padding: 10px 0 0 10px;
-    background-color: #FFE3E3;
-    border-radius: 10px;
-    height: 230px;
-    width: 200px;
+  padding: 10px 0 0 10px;
+  background-color: #ffe3e3;
+  border-radius: 10px;
+  height: 300px;
+  width: 200px;
 }

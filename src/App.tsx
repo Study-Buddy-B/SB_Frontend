@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
-import Main from "./pages/Main";
+import Main from "./components/main/Main";
 import Group from "./pages/Group";
 import GNB from "./components/gnb/GNB";
 import MyGroup from "./components/group/MyGroup";
@@ -11,15 +12,18 @@ import "./App.css";
 import "./assets/css/setting.css";
 
 function App() {
+  const [isAlarm, setIsAlarm] = useState(0);
   return (
     <div className="App">
       <GNB />
-      {/* <div className="alarm-wrapper">
-        <Alarm/>
-      </div> */}
+      {isAlarm !== 0 && (
+        <div className="alarm-wrapper">
+          <Alarm isAlarm={isAlarm} setIsAlarm={setIsAlarm} />
+        </div>
+      )}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main setIsAlarm={setIsAlarm} />} />
         </Routes>
         <Routes>
           <Route path="/group" element={<Group />} />
