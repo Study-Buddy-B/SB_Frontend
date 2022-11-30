@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useLayoutEffect,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import { Cookies } from "react-cookie";
 import axios from "axios";
 import { SlSettings } from "react-icons/sl";
@@ -13,11 +6,7 @@ import { SlSettings } from "react-icons/sl";
 import "../../assets/css/main.css";
 import Modal from "../modal/Modal";
 
-interface IAlarm {
-  setIsAlarm: Dispatch<SetStateAction<number>>;
-}
-
-export default function Main(props: IAlarm) {
+export default function Main() {
   const cookies = new Cookies();
   const token = cookies.get("uuid");
   const targetRef = useRef<HTMLInputElement>(null);
@@ -107,16 +96,6 @@ export default function Main(props: IAlarm) {
     };
     postTime();
   };
-
-  useEffect(() => {
-    if (env === "! 온도를 내려주세요.") {
-      props.setIsAlarm(1);
-    } else if (env === "! 온도를 올려주세요.") {
-      props.setIsAlarm(2);
-    } else {
-      props.setIsAlarm(0);
-    }
-  }, [temperature]);
 
   if (loading) return <div style={{ textAlign: "center" }}>...loAdiNg...</div>;
 
