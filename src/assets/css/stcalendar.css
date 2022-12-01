@@ -7,8 +7,9 @@
 .react-calendar{
     margin-top: 20px;
     margin-left: 40px;
-    width: 500px;
-    height: 300px;
+    margin-right: 10px;
+    width: 520px;
+    height: 320px;
 }
 
 .react-calendar__tile:enabled:hover,
@@ -29,7 +30,6 @@
     font-weight: bolder;
     color: black;
 }
-
 .calendar-wrapper{
     padding: 10px 0 0 10px;
     background-color: #FFE3E3;
@@ -50,8 +50,18 @@
 
 .text-time{
     font-size: 40px;
+    
     font-weight: bolder;
     color: black;
     text-align: right;
     margin-right: 40px;
 }
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #f87171;
+    border-radius: 50%;
+    display: flex;
+    margin-left: 1px;
+  }

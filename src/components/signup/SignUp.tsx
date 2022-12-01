@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useRef, useState} from 'react';
 import {Form,Formik,Field,ErrorMessage} from 'formik';
 import * as yup from 'yup';
 
 import "../../assets/css/signup.css";
+import axios from 'axios';
 
 
 
@@ -14,11 +15,11 @@ const ValidationSchema=yup.object({
   
     userPw:yup
     .string()
-    .required('영문, 숫자포함 8자리를 입력해주세요.')
-    .min(8,"최소 8자 이상 가능합니다.")
+    .required('영문, 숫자포함 4자리 이상을 입력해주세요.')
+    .min(3,"최소 4자 이상 가능합니다.")
     .max(15,"최대 15자 까지만 가능합니다.")
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/,
-    '영문 숫자포함 8자리를 입력해주세요.'),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,15}$/,
+    '영문 숫자포함 4자리 이상을 입력해주세요.'),
   
     userN:yup
     .string()
@@ -28,20 +29,39 @@ const ValidationSchema=yup.object({
   
 });
   
-interface SignUpForm{
-    userEmail:string;
-    userPw:string;
-    userN:string;
-    isSignUp:boolean;
-}
-
   
 export default function SignUp(){
-  
-    const handleSubmit=(values:SignUpForm)=>{
+
+    //const [userEmail,setUserEmail]=useState("");
+    //const [userPw,setUserPw]=useState("");
+    //const [userN,setUserrN]=useState("");
+    const emailRef=useRef<HTMLInputElement>(null);
+    const pwRef=useRef<HTMLInputElement>(null);
+    const NRef=useRef<HTMLInputElement>(null);
+
+    const api_signup=async()=>{
+        await axios.post('${process.env.REACT_APP_SERVER_HOST}/api/v1/account',{
+                email:emailRef.current?.value,
+                password:pwRef.current?.value,
+                name:NRef.current?.value
+            }).then(function(response){
+                {
+                    window.alert(response.data.message)
+                    console.log(response.data.message)
+                    document.location.assign('/login')
+                }
+            }).catch((error) =>{
+                window.alert(error.response.data.message)
+                console.log(error.response.data.message)
+                document.location.assign('/signup')
+            })
+    }
+
+
+    const handleSubmit=(values:any)=>{
       console.log(values);
     };
-    
+
     return(
     
         <div className='main'>
@@ -58,38 +78,11 @@ export default function SignUp(){
                   onSubmit={handleSubmit}>
   
                     <Form>
-                        <Field
-                        name="userEmail"
-                        type="userEmail"
-                        placeholder="이메일을 입력해주세요."
-                        form={''}>
-                        </Field>
-                        <div className='error'>
-                            <ErrorMessage name="userEmail" component="div"></ErrorMessage>
-                        </div>
+                        <input ref={emailRef} placeholder="이메일을 입력해주세요."></input>
+                        <input ref={pwRef} placeholder="비밀번호를 입력해주세요."></input>
+                        <input ref={NRef} placeholder="닉네임을 입력해주세요. "></input>
                       
-                        <Field
-                        name="userN"
-                        type="userN"
-                        placeholder="닉네임을 입력해주세요."
-                        form={''}>
-                        </Field>
-                        <div className='error'>
-                            <ErrorMessage name="userN" component="div"></ErrorMessage>
-                        </div>
-                    
-                        <Field
-                        name="userPw"
-                        type="userPw"
-                        placeholder="비밀번호를 입력해주세요."
-                        form={''}>
-                        </Field>
-
-                        <div className='error'>
-                            <ErrorMessage name="userPw" component="div"></ErrorMessage>
-                        </div>
-                      
-                        <button className="inputbutton" type='submit'>회원가입</button>
+                        <button className="inputbutton" type='submit' onClick={api_signup}>회원가입</button>
                     </Form>
                 </Formik>
   
@@ -101,4 +94,4 @@ export default function SignUp(){
   
       );
 }
-  
+
