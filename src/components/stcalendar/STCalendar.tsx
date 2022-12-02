@@ -1,6 +1,6 @@
 import React,{useEffect, useLayoutEffect, useState} from 'react';
 import Calendar from 'react-calendar';
-import moment, { min } from 'moment';
+import moment from 'moment';
 import axios from 'axios';
 
 import 'react-calendar/dist/Calendar.css'
@@ -8,12 +8,30 @@ import "../../assets/css/stcalendar.css";
 
 import { Cookies } from 'react-cookie';
 
+
+/*
+interface SelectDay{
+    id:number;
+    date:string;
+    time:number;    
+}
+*/
+
 export default function STCalendar(){
 
     const cookies = new Cookies();
     const token=cookies.get("uuid");
 
     const [todayStudyTime,settodayStudyTime]=useState(0);
+    /*
+    const [dayStudyTime,setdayStudyTime]=useState<SelectDay>({
+        id:0,
+        date:"2022-11-11",
+        time:3.5
+    });
+    */
+    //const[SdayStudyTime,setSdayStudyTime]=useState(0);
+
     const [dayStudyTime,setdayStudyTime]=useState(0);
     const [cumStudyTime,setcumStudyTime]=useState(14.23);
     const [avgStudyTime,setavgStudyTime]=useState(3.2);
@@ -27,35 +45,16 @@ export default function STCalendar(){
     const month=moment(value).format('MM')
     const day=moment(value).format('DD')
 
-
-    /*
-    useLayoutEffect(()=>{
-        const addtime=async()=>{
-            await axios
-            .post("http://34.200.36.214/api/v1/time",{
-                time:2.2,
-                headers:{
-                    Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
-                }
-            }).then((res)=>{
-                setdayStudyTime(res.data.time)
-            });
-        };
-        addtime();
-    },[])
-    */
-    
-
     
 
     useEffect(()=>{
         const getStudyTime=async()=>{
             //+year+"-"+month+"-"+day
             await axios
-                .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/time/today',{
+                .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/api/v1/time/today',{
                     headers:{
-                        Authorization:token
-                        //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
+                        //Authorization:token
+                        Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
                     }
                 }).then(function(response){
                     settodayStudyTime(response.data.time)
@@ -68,17 +67,25 @@ export default function STCalendar(){
         getStudyTime();
     },[]);
 
+    
     const day_calendar=async()=>{
             await axios
-                    .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/${year}-${month}-${day}'+{
+                    .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/'+year+'-'+month+'-'+day,{
                         headers:{
-                            Authorization:token
-                            //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
+                            //Authorization:token
+                            Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
                             
                         }
                     }).then(function(response){
-                        console.log(response.data[0].time)
-                        setdayStudyTime(response.data[0].time)
+                        
+                        console.log(response.data)
+                        setdayStudyTime(response.data.date)
+                        /*if (dayStudyTime.date==='${year}-${month}-${day}'){
+                            setSdayStudyTime(dayStudyTime.time)
+                        }
+                        else{
+                            setSdayStudyTime(0)
+                        }*/
                     });
     };
     day_calendar();
@@ -86,16 +93,13 @@ export default function STCalendar(){
     
 
     
-
     
-    useEffect(()=>{
-        
-        const st_calendar=async()=>{
+    const st_calendar=async()=>{
             await axios
-                .get("${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/${year}-${month}/report",{
+                .get("${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/"+year+"-"+month+"/report",{
                     headers:{
-                        Authorization:token
-                        //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
+                        //Authorization:token
+                        Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
                         
                     }
                 }).then(function(response){
@@ -111,10 +115,8 @@ export default function STCalendar(){
 
     
                 });
-        };
-        st_calendar();
-    },[]);
-        
+    };
+    st_calendar();    
                 
     
     
