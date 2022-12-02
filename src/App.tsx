@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Main from "./pages/Main";
+import Main from "./components/main/Main";
 import Group from "./pages/Group";
 import GNB from "./components/gnb/GNB";
 import MyGroup from "./components/group/MyGroup";
@@ -14,9 +14,7 @@ function App() {
   return (
     <div className="App">
       <GNB />
-      {/* <div className="alarm-wrapper">
-        <Alarm/>
-      </div> */}
+      <Alarm />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
