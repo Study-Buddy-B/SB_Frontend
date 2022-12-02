@@ -9,13 +9,6 @@ import "../../assets/css/stcalendar.css";
 import { Cookies } from 'react-cookie';
 
 
-/*
-interface SelectDay{
-    id:number;
-    date:string;
-    time:number;    
-}
-*/
 
 export default function STCalendar(){
 
@@ -23,15 +16,9 @@ export default function STCalendar(){
     const token=cookies.get("uuid");
 
     const [todayStudyTime,settodayStudyTime]=useState(0);
-    /*
-    const [dayStudyTime,setdayStudyTime]=useState<SelectDay>({
-        id:0,
-        date:"2022-11-11",
-        time:3.5
-    });
-    */
-    //const[SdayStudyTime,setSdayStudyTime]=useState(0);
+    
 
+    
     const [dayStudyTime,setdayStudyTime]=useState(0);
     const [cumStudyTime,setcumStudyTime]=useState(14.23);
     const [avgStudyTime,setavgStudyTime]=useState(3.2);
@@ -53,8 +40,8 @@ export default function STCalendar(){
             await axios
                 .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/api/v1/time/today',{
                     headers:{
-                        //Authorization:token
-                        Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
+                        Authorization:token
+                        //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
                     }
                 }).then(function(response){
                     settodayStudyTime(response.data.time)
@@ -70,23 +57,21 @@ export default function STCalendar(){
     
     const day_calendar=async()=>{
             await axios
-                    .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/'+year+'-'+month+'-'+day,{
+                    .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/time/date/'+year+'-'+month+'-'+day,{
                         headers:{
-                            //Authorization:token
-                            Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
+                            Authorization:token
+                            //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
                             
                         }
                     }).then(function(response){
                         
-                        console.log(response.data)
-                        setdayStudyTime(response.data.date)
-                        /*if (dayStudyTime.date==='${year}-${month}-${day}'){
-                            setSdayStudyTime(dayStudyTime.time)
-                        }
-                        else{
-                            setSdayStudyTime(0)
-                        }*/
-                    });
+                        setdayStudyTime(response.data.time)
+                    
+                        
+                    }).catch(error=>{
+                        console.log(error.response.message)
+                        setdayStudyTime(0)
+                    })
     };
     day_calendar();
     
