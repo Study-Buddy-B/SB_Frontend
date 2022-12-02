@@ -43,18 +43,21 @@ export default function Alarm() {
 
   //알람 유무 관련
   useEffect(() => {
+    console.log(celType);
     if (celType !== -1) {
       if (celsius < 18) setCelType(1);
       else if (celsius > 21) setCelType(2);
       else setCelType(0);
     }
+  }, [celsius]);
 
-    if(celType !== 1 && celType !== 2){
+  useEffect(() => {
+    if (celType === -1) {
       setTimeout(function () {
         setCelType(0);
       }, 3000);
     }
-  }, [celsius]);
+  }, [celType]);
 
   if (message === "") return <></>;
   return (
