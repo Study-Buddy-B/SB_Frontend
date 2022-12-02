@@ -9,12 +9,17 @@ export default function GNB() {
     >
       <div
         style={{ fontWeight: "800", cursor: "pointer" }}
-        onClick={() => window.location.replace("/")}
+        onClick={() => window.location.replace("/main")}
       >
         studyBuddy
       </div>
       <div className="flex-row" style={{ marginLeft: "100px" }}>
-        <div onClick={()=>window.location.replace("/calendar")} style={{ cursor: "pointer" }}>통계</div>
+        <div
+          onClick={() => window.location.replace("/calendar")}
+          style={{ cursor: "pointer" }}
+        >
+          통계
+        </div>
         <div
           style={{ marginLeft: "10px", cursor: "pointer" }}
           onClick={() => window.location.replace("/group")}
