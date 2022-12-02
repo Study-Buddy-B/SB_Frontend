@@ -8,12 +8,12 @@ import axios from 'axios';
 
 
 const ValidationSchema=yup.object({
-    userEmail:yup
+    email:yup
     .string()
     .required("이메일을 입력해주세요.")
     .email("이메일 형식이 아닙니다."),
   
-    userPw:yup
+    pw:yup
     .string()
     .required('영문, 숫자포함 4자리 이상을 입력해주세요.')
     .min(3,"최소 4자 이상 가능합니다.")
@@ -21,7 +21,7 @@ const ValidationSchema=yup.object({
     .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,15}$/,
     '영문 숫자포함 4자리 이상을 입력해주세요.'),
   
-    userN:yup
+    mick:yup
     .string()
     .required("닉네임을 입력해주세요.")
     .min(2,"닉네임은 2자리 이상 가능합니다.")
@@ -73,14 +73,23 @@ export default function SignUp(){
                 </div>
                 <Formik
                   
-                  initialValues={{userEmail:'',userPw:'',userN:'',isSignUp:false}}
+                  initialValues={{emailRef:'',pwRef:'',NRef:''}}
                   validationSchema={ValidationSchema}
                   onSubmit={handleSubmit}>
   
                     <Form>
-                        <input ref={emailRef} placeholder="이메일을 입력해주세요."></input>
-                        <input ref={pwRef} placeholder="비밀번호를 입력해주세요."></input>
-                        <input ref={NRef} placeholder="닉네임을 입력해주세요. "></input>
+                        <input ref={emailRef} name='emailRef' placeholder="이메일을 입력해주세요."></input>
+                        <div className='error'>
+                            <ErrorMessage name="email" component="div"></ErrorMessage>
+                        </div>
+                        <input ref={pwRef} name='pwRef' placeholder="비밀번호를 입력해주세요."></input>
+                        <div className='error'>
+                            <ErrorMessage name="pw" component="div"></ErrorMessage>
+                        </div>
+                        <input ref={NRef} name='NRef' placeholder="닉네임을 입력해주세요. "></input>
+                        <div className='error'>
+                            <ErrorMessage name="nick" component="div"></ErrorMessage>
+                        </div>
                       
                         <button className="inputbutton" type='submit' onClick={api_signup}>회원가입</button>
                     </Form>

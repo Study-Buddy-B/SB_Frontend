@@ -18,7 +18,7 @@ export default function STCalendar(){
     const [todayStudyTime,settodayStudyTime]=useState(0);
     
 
-    
+
     const [dayStudyTime,setdayStudyTime]=useState(0);
     const [cumStudyTime,setcumStudyTime]=useState(14.23);
     const [avgStudyTime,setavgStudyTime]=useState(3.2);
@@ -83,8 +83,8 @@ export default function STCalendar(){
             await axios
                 .get("${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/"+year+"-"+month+"/report",{
                     headers:{
-                        //Authorization:token
-                        Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
+                        Authorization:token
+                        //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
                         
                     }
                 }).then(function(response){
