@@ -40,7 +40,7 @@ export default function SignUp(){
     const NRef=useRef<HTMLInputElement>(null);
 
     const api_signup=async()=>{
-        await axios.post('${process.env.REACT_APP_SERVER_HOST}/api/v1/account',{
+        await axios.post(`${process.env.REACT_APP_SERVER_HOST}/api/v1/account`,{
                 email:emailRef.current?.value,
                 password:pwRef.current?.value,
                 name:NRef.current?.value
@@ -48,7 +48,7 @@ export default function SignUp(){
                 {
                     window.alert(response.data.message)
                     console.log(response.data.message)
-                    document.location.assign('/login')
+                    document.location.assign('/')
                 }
             }).catch((error) =>{
                 window.alert(error.response.data.message)

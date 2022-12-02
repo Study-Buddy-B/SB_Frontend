@@ -82,10 +82,13 @@ body {
   width: 100vw;
   height: 100vh;
   overflow-y: auto;
-  padding-bottom: 100px;
 }
 
 .alarm-wrapper {
   display: flex;
   justify-content: center;
+}
+
+input:focus {
+  outline: none;
 }

@@ -38,7 +38,7 @@ export default function STCalendar(){
         const getStudyTime=async()=>{
             //+year+"-"+month+"-"+day
             await axios
-                .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/api/v1/time/today',{
+                .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/api/v1/time/today`,{
                     headers:{
                         Authorization:token
                         //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
@@ -57,7 +57,7 @@ export default function STCalendar(){
     
     const day_calendar=async()=>{
             await axios
-                    .get('${process.env.REACT_APP_SERVER_HOST}/api/v1/time/date/'+year+'-'+month+'-'+day,{
+                    .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/time/date/`+year+`-`+month+`-`+day,{
                         headers:{
                             Authorization:token
                             //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"
@@ -81,7 +81,7 @@ export default function STCalendar(){
     
     const st_calendar=async()=>{
             await axios
-                .get("${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/"+year+"-"+month+"/report",{
+                .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/time/month/`+year+`-`+month+`/report`,{
                     headers:{
                         Authorization:token
                         //Authorization:"c17831ae-becb-4ff8-8482-b90cf3f305b0"

@@ -35,7 +35,7 @@ export default function Login(){
     const api_login=async()=>{
         
         await axios
-            .post("${process.env.REACT_APP_SERVER_HOST}/api/v1/login", {
+            .post(`${process.env.REACT_APP_SERVER_HOST}/api/v1/account/login`, {
               //email: "test@test.com",
               //password: "test",
               email:emailRef.current?.value,
@@ -44,12 +44,12 @@ export default function Login(){
             .then((res)=>{
                 cookies.set('uuid',res.data.uuid);
                 console.log(res.data.uuid);
-                document.location.assign('/')
+                document.location.assign('/main')
             }).catch((error) => {
                 console.log(error.response.data.code);
                 console.log(error.response.data.message)
                 window.alert(error.response.data.message)
-                document.location.assign('/login')
+                //document.location.assign('/')
             })
     }
 
