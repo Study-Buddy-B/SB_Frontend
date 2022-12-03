@@ -12,7 +12,7 @@ export default function Main() {
   const targetRef = useRef<HTMLInputElement>(null);
 
   const [loading, setLoading] = useState(false);
-  const [sit, setSit] = useState(15.7);
+  const [sit, setSit] = useState(0);
   const [goal, setGoal] = useState(20);
   const [gesture, setGesture] = useState(true);
   const [temperature, setTemperature] = useState(18);
@@ -64,28 +64,26 @@ export default function Main() {
         })
         .then((res) => {
           setSit(res.data.curTime);
-          setGoal(res.data.tarTime);
         });
     }, 1000);
 
     return () => clearInterval(getTempPosture);
   }, []);
 
-  // useLayoutEffect(() => {
-  //   const getTime = async () => {
-  //     await axios
-  //       .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/users`, {
-  //         headers: {
-  //           Authorization: token,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         setSit(res.data.curTime);
-  //         setGoal(res.data.tarTime);
-  //       });
-  //   };
-  //   getTime();
-  // }, [targetRef.current?.value]);
+  useLayoutEffect(() => {
+    const getTime = async () => {
+      await axios
+        .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/users`, {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setGoal(res.data.tarTime);
+        });
+    };
+    getTime();
+  }, [targetRef.current?.value]);
 
   const completeClickHandler = () => {
     const postTime = async () => {
