@@ -14,7 +14,6 @@ import "../../assets/css/alarm.css";
 export default function Alarm() {
   const cookies = new Cookies();
   const token = cookies.get("uuid");
-  const [flag, setFlag] = useState(false);
   const [celsius, setCelsius] = useState(0);
   const [celType, setCelType] = useState(-1);
   const message =
