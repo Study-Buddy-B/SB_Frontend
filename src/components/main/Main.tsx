@@ -55,13 +55,7 @@ export default function Main() {
         .then((res) => {
           setGesture(res.data.isAppropriate);
         });
-    }, 1000);
 
-    return () => clearInterval(getTempPosture);
-  }, []);
-
-  useLayoutEffect(() => {
-    const getTime = async () => {
       await axios
         .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/users`, {
           headers: {
@@ -72,9 +66,26 @@ export default function Main() {
           setSit(res.data.curTime);
           setGoal(res.data.tarTime);
         });
-    };
-    getTime();
-  }, [targetRef.current?.value]);
+    }, 1000);
+
+    return () => clearInterval(getTempPosture);
+  }, []);
+
+  // useLayoutEffect(() => {
+  //   const getTime = async () => {
+  //     await axios
+  //       .get(`${process.env.REACT_APP_SERVER_HOST}/api/v1/users`, {
+  //         headers: {
+  //           Authorization: token,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         setSit(res.data.curTime);
+  //         setGoal(res.data.tarTime);
+  //       });
+  //   };
+  //   getTime();
+  // }, [targetRef.current?.value]);
 
   const completeClickHandler = () => {
     const postTime = async () => {
